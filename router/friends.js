@@ -15,17 +15,8 @@ router.get('/', (req, res) => {
 
 // GET by specific ID request: Retrieve a single friend with email ID
 router.get('/:email', (req, res) => {
-  let selectedFriend = null;
-
-  const parsedFriends = JSON.parse(friends);
-
-  for (const friend in parsedFriends) {
-    if (friend === req.params.email) {
-      selectedFriend = friend;
-    }
-  }
-
-  res.send(JSON.stringify(selectedFriend, null, 4));
+  const email = req.params.email;
+  res.send(friends[email]);
 });
 
 // POST request: Add a new friend
