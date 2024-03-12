@@ -16,7 +16,12 @@ router.get('/', (req, res) => {
 // GET by specific ID request: Retrieve a single friend with email ID
 router.get('/:email', (req, res) => {
   const email = req.params.email;
-  res.send(friends[email]);
+
+  if (email) {
+    res.send(friends[email]);
+  } else {
+    res.send('Unable to find friend!');
+  }
 });
 
 // POST request: Add a new friend
@@ -57,8 +62,12 @@ router.put('/:email', (req, res) => {
 
 // DELETE request: Delete a friend by email id
 router.delete('/:email', (req, res) => {
-  // Update the code here
-  res.send('Yet to be implemented'); //This line is to be replaced with actual return value
+  if (req.params.email) {
+    delete friends[req.params.email];
+    res.send(`The friend (${req.params.email})'s details has been deleted`);
+  } else {
+    res.send('Unable to find friend!');
+  }
 });
 
 module.exports = router;
