@@ -29,13 +29,30 @@ router.post('/', (req, res) => {
     };
   }
 
-  res.send(`The user ${req.body.firstName} has been added`);
+  res.send(`The friend ${req.body.firstName} has been added`);
 });
 
 // PUT request: Update the details of a friend with email id
 router.put('/:email', (req, res) => {
-  // Update the code here
-  res.send('Yet to be implemented'); //This line is to be replaced with actual return value
+  let friend = friends[req.params.email];
+
+  if (friend) {
+    if (req.body.firstName) {
+      friend.firstName = req.body.firstName;
+    }
+
+    if (req.body.lastName) {
+      friend.lastName = req.body.lastName;
+    }
+
+    if (req.body.DOB) {
+      friend.DOB = req.body.DOB;
+    }
+
+    res.send(`The friend (${req.params.email})'s details has been updated`);
+  } else {
+    res.send('Unable to find friend!');
+  }
 });
 
 // DELETE request: Delete a friend by email id
